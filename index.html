@@ -5,12 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Binary to Letter Converter</title>
     <script>
+        // Function to convert binary to letters
         function binaryToLetter() {
             const binaryString = document.getElementById("binaryInput").value.trim();
             const binaryArray = binaryString.split('.');
             let result = '';
 
-            // Define the binary-to-letter map (1 = A, 01 = B, 11 = C, etc.)
             const binaryMap = {
                 '1': 'A',
                 '01': 'B',
@@ -40,17 +40,35 @@
                 '01011': 'Z',
             };
 
-            // Convert each binary code into corresponding letter
             binaryArray.forEach(binaryCode => {
-                if (binaryMap[binaryCode]) {
-                    result += binaryMap[binaryCode];
-                } else {
-                    result += '?'; // Use ? for invalid binary code
-                }
+                result += binaryMap[binaryCode] || '?'; // Use '?' for invalid binary codes
             });
 
-            // Display the result
             document.getElementById("result").textContent = result;
+        }
+
+        // Function to save input as .btl file
+        function saveToFile() {
+            const binaryInput = document.getElementById("binaryInput").value.trim();
+            const blob = new Blob([binaryInput], { type: 'application/octet-stream' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = 'binary_to_letter.btl';
+            link.click();
+        }
+
+        // Function to load .btl file
+        function loadFromFile(event) {
+            const file = event.target.files[0];
+            const reader = new FileReader();
+
+            reader.onload = function (e) {
+                document.getElementById("binaryInput").value = e.target.result;
+            };
+
+            if (file) {
+                reader.readAsText(file);
+            }
         }
     </script>
 </head>
@@ -60,5 +78,13 @@
     <input type="text" id="binaryInput" placeholder="Enter binary codes">
     <button onclick="binaryToLetter()">Convert</button>
     <p>Result: <span id="result"></span></p>
+
+    <hr>
+
+    <!-- Save and Load Buttons -->
+    <button onclick="saveToFile()">Save to .btl</button>
+    <input type="file" id="fileInput" accept=".btl" onchange="loadFromFile(event)" />
+    <label for="fileInput">Load .btl file</label>
+
 </body>
 </html>
