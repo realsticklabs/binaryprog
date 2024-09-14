@@ -47,13 +47,14 @@
             document.getElementById("result").textContent = result;
         }
 
-        // Function to save input as .btl file
+        // Function to save input as .btl file with custom name
         function saveToFile() {
             const binaryInput = document.getElementById("binaryInput").value.trim();
+            const fileName = document.getElementById("fileName").value.trim() || 'binary_to_letter';
             const blob = new Blob([binaryInput], { type: 'application/octet-stream' });
             const link = document.createElement('a');
             link.href = URL.createObjectURL(blob);
-            link.download = 'binary_to_letter.btl';
+            link.download = fileName + '.btl'; // Append .btl extension
             link.click();
         }
 
@@ -80,6 +81,10 @@
     <p>Result: <span id="result"></span></p>
 
     <hr>
+
+    <!-- Input for file name -->
+    <label for="fileName">Enter file name (without extension):</label>
+    <input type="text" id="fileName" placeholder="File name">
 
     <!-- Save and Load Buttons -->
     <button onclick="saveToFile()">Save to .btl</button>
