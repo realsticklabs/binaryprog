@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Binary to Letter Converter</title>
+    <script>
+        function binaryToLetter() {
+            const binaryString = document.getElementById("binaryInput").value.trim();
+            const binaryArray = binaryString.split('.');
+            let result = '';
+
+            // Define the binary-to-letter map (1 = A, 01 = B, 11 = C, etc.)
+            const binaryMap = {
+                '1': 'A',
+                '01': 'B',
+                '11': 'C',
+                '001': 'D',
+                '101': 'E',
+                '011': 'F',
+                '111': 'G',
+                '0001': 'H',
+                '1001': 'I',
+                '0101': 'J',
+                '1101': 'K',
+                '0011': 'L',
+                '1011': 'M',
+                '0111': 'N',
+                '1111': 'O',
+                '00001': 'P',
+                '10001': 'Q',
+                '01001': 'R',
+                '11001': 'S',
+                '00101': 'T',
+                '10101': 'U',
+                '01101': 'V',
+                '11101': 'W',
+                '00011': 'X',
+                '10011': 'Y',
+                '01011': 'Z',
+            };
+
+            // Convert each binary code into corresponding letter
+            binaryArray.forEach(binaryCode => {
+                if (binaryMap[binaryCode]) {
+                    result += binaryMap[binaryCode];
+                } else {
+                    result += '?'; // Use ? for invalid binary code
+                }
+            });
+
+            // Display the result
+            document.getElementById("result").textContent = result;
+        }
+    </script>
+</head>
+<body>
+    <h2>Binary to Letter Converter</h2>
+    <label for="binaryInput">Enter binary codes separated by dots (e.g., 1.01.11):</label>
+    <input type="text" id="binaryInput" placeholder="Enter binary codes">
+    <button onclick="binaryToLetter()">Convert</button>
+    <p>Result: <span id="result"></span></p>
+</body>
+</html>
